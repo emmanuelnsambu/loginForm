@@ -1,0 +1,34 @@
+<section id="contact">
+  <div class="content">
+    <div id="form">
+      <h2>Log in Form</h2>
+      <form [formGroup]="loginForm" id="contactForm" method="POST">
+        <label for="username">Username</label>
+        <input type="text"
+               id="username"
+               formControlName="username"
+               class="form-control"
+               />
+        <label for="password">Password</label>
+        <input type="password"
+               id="password"
+               formControlName="password"
+               class="form-control"
+               />
+        <re-captcha
+          (resolved)="$event && submit($event)"
+          siteKey="6LcKNEIUAAAAAPGe3VDGzUcqXyi5iyMD-IPhiXej"
+          size="invisible"
+          #recapthaReference="reCaptcha"
+        ></re-captcha>
+        <button class="g-recaptcha" (click)="recapthaReference.execute()">Login</button>
+      </form>
+    </div>
+  </div>
+</section>
+<section>
+  <div [ngClass]="loggedIn ? 'success' : 'danger' ">
+    <h3>Result</h3>
+    <div>{{ userData }}</div>
+  </div>
+</section>

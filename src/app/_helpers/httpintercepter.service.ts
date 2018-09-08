@@ -1,0 +1,18 @@
+import { Injectable } from '@angular/core';
+import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest} from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable()
+export class HttpintercepterService implements HttpInterceptor {
+
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let userFalconToken = localStorage.getItem('userFalconToken');
+    let userXSRFToken = localStorage.getItem('userXSRFToken');
+    if (userFalconToken && userXSRFToken) {
+      request = request.clone({
+        setHeaders: {'X-XSRF-TOKEN' : userXSRFToken, 'X-FALCON-TOKEN' : userFalconToken}
+      });
+    }
+    return next.handle(request);
+  }
+}
