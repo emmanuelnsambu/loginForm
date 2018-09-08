@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
             if (localStorage.getItem('userData')) {
               this.loggedIn = true;
               this.userData = localStorage.getItem('userData');
+              this.loginForm.reset();
             }
           },
           error => {
