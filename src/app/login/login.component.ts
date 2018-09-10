@@ -12,7 +12,9 @@ import {Md5} from 'ts-md5/dist/md5';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loggedIn = false;
+  loginFailed = false;
   userData = '';
+  errorMessage = '';
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private authenticateService: AuthenticateService) {}
@@ -36,8 +38,10 @@ export class LoginComponent implements OnInit {
     return md5.appendStr(password).end();
   }
 
-  submit(captchaResponse: string) {
+  submit(captchaResponse: string) {console.log('here');
     if (captchaResponse) {
+      this.loginFailed = false;
+      this.loggedIn = false;
       this.authenticateService.login (
         captchaResponse,
         this.formData.username.value,
@@ -54,11 +58,15 @@ export class LoginComponent implements OnInit {
             if (localStorage.getItem('userData')) {
               this.loggedIn = true;
               this.userData = localStorage.getItem('userData');
+              grecaptcha.reset();
               this.loginForm.reset();
             }
           },
-          error => {
-            // TODO: handle error
+          message => {
+            this.errorMessage = message.error.request.error.message;
+            this.loginFailed = true;
+            grecaptcha.reset();
+            this.loginForm.reset();
           });
     }
   }

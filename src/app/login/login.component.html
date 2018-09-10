@@ -27,8 +27,11 @@
   </div>
 </section>
 <section>
-  <div [ngClass]="loggedIn ? 'success' : 'danger' ">
+  <div [ngClass]="loggedIn ? 'success' : 'is-hidden' ">
     <h3>Result</h3>
     <div>{{ userData }}</div>
+  </div>
+  <div [ngClass]="loginFailed ? 'danger' : 'is-hidden' ">
+    <div>{{ errorMessage }}</div>
   </div>
 </section>
