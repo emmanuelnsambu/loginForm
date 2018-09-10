@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     return md5.appendStr(password).end();
   }
 
-  submit(captchaResponse: string) {console.log('here');
+  submit(captchaResponse: string) {
     if (captchaResponse) {
       this.loginFailed = false;
       this.loggedIn = false;
