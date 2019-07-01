@@ -11,10 +11,11 @@ import {Md5} from 'ts-md5/dist/md5';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  loggedIn = false;
-  loginFailed = false;
-  userData = '';
-  errorMessage = '';
+  loggedIn: boolean = false;
+  loginFailed: boolean = false;
+  userData: string = '';
+  errorMessage: string = '';
+
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private authenticateService: AuthenticateService) {}
